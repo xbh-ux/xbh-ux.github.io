@@ -4,7 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5137d26a-6310-4663-9dd3-91aa4a79aa09" name="Changes" comment="排错" />
+    <list default="true" id="5137d26a-6310-4663-9dd3-91aa4a79aa09" name="Changes" comment="排错">
+      <change afterPath="$PROJECT_DIR$/source/img/bizhi.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_config.butterfly.yml" beforeDir="false" afterPath="$PROJECT_DIR$/_config.butterfly.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_config.yml" beforeDir="false" afterPath="$PROJECT_DIR$/_config.yml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -38,7 +43,7 @@
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "main",
-    "last_opened_file_path": "/Users/xiangbaihan/编程/VS-Code/xbh/themes/butterfly/source/img",
+    "last_opened_file_path": "/Users/xiangbaihan/编程/VS-Code/xbh/source/img",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -50,8 +55,8 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/themes/butterfly/source/img" />
       <recent name="$PROJECT_DIR$/source/img" />
+      <recent name="$PROJECT_DIR$/themes/butterfly/source/img" />
     </key>
   </component>
   <component name="SharedIndexes">
@@ -69,7 +74,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1732160338899</updated>
-      <workItem from="1732160339906" duration="14641000" />
+      <workItem from="1732160339906" duration="21311000" />
     </task>
     <task id="LOCAL-00001" summary="安装butterfly主题">
       <option name="closed" value="true" />
@@ -119,7 +124,15 @@
       <option name="project" value="LOCAL" />
       <updated>1732246055189</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="排错">
+      <option name="closed" value="true" />
+      <created>1732247010805</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1732247010805</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
