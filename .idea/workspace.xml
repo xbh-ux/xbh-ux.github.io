@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5137d26a-6310-4663-9dd3-91aa4a79aa09" name="Changes" comment="传入butterfly">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_config.yml" beforeDir="false" afterPath="$PROJECT_DIR$/_config.yml" afterDir="false" />
-    </list>
+    <list default="true" id="5137d26a-6310-4663-9dd3-91aa4a79aa09" name="Changes" comment="排错" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -72,7 +69,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1732160338899</updated>
-      <workItem from="1732160339906" duration="14296000" />
+      <workItem from="1732160339906" duration="14641000" />
     </task>
     <task id="LOCAL-00001" summary="安装butterfly主题">
       <option name="closed" value="true" />
@@ -114,7 +111,15 @@
       <option name="project" value="LOCAL" />
       <updated>1732244001624</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="排错">
+      <option name="closed" value="true" />
+      <created>1732246055189</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1732246055189</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -138,6 +143,7 @@
     <MESSAGE value="安装butterfly主题" />
     <MESSAGE value="更换头像" />
     <MESSAGE value="传入butterfly" />
-    <option name="LAST_COMMIT_MESSAGE" value="传入butterfly" />
+    <MESSAGE value="排错" />
+    <option name="LAST_COMMIT_MESSAGE" value="排错" />
   </component>
 </project>
