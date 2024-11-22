@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5137d26a-6310-4663-9dd3-91aa4a79aa09" name="Changes" comment="安装butterfly主题">
-      <change afterPath="$PROJECT_DIR$/_config.butterfly.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/source/img/toxiang.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/themes/butterfly/source/img/toxiang.jpg" afterDir="false" />
+    <list default="true" id="5137d26a-6310-4663-9dd3-91aa4a79aa09" name="Changes" comment="传入butterfly">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/_config.yml" beforeDir="false" afterPath="$PROJECT_DIR$/_config.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -74,7 +72,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1732160338899</updated>
-      <workItem from="1732160339906" duration="12363000" />
+      <workItem from="1732160339906" duration="14296000" />
     </task>
     <task id="LOCAL-00001" summary="安装butterfly主题">
       <option name="closed" value="true" />
@@ -100,7 +98,23 @@
       <option name="project" value="LOCAL" />
       <updated>1732161314548</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="更换头像">
+      <option name="closed" value="true" />
+      <created>1732243930093</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1732243930093</updated>
+    </task>
+    <task id="LOCAL-00005" summary="传入butterfly">
+      <option name="closed" value="true" />
+      <created>1732244001624</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1732244001624</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -122,6 +136,8 @@
       <path value="$PROJECT_DIR$/themes/butterfly" />
     </ignored-roots>
     <MESSAGE value="安装butterfly主题" />
-    <option name="LAST_COMMIT_MESSAGE" value="安装butterfly主题" />
+    <MESSAGE value="更换头像" />
+    <MESSAGE value="传入butterfly" />
+    <option name="LAST_COMMIT_MESSAGE" value="传入butterfly" />
   </component>
 </project>
