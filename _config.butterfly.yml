@@ -14,13 +14,13 @@ nav:
   logo:
   display_title: true
   # Whether to fix navigation bar
-  fixed: false
+  fixed: true
 
 menu:
-# Home: / || fas fa-home
-# List||fas fa-list:
-#   Music: /music/ || fas fa-music
-#   Movie: /movies/ || fas fa-video
+Home: / || fas fa-home
+List||fas fa-list:
+  Music: /music/ || fas fa-music
+  Movie: /movies/ || fas fa-video
 
 # --------------------------------------
 # Code Blocks Settings
@@ -145,7 +145,7 @@ index_site_info_top:
 # The height of top_img, eg: 300px/300em/300rem
 index_top_img_height:
 
-# The subtitle on homepage
+# The subtitle on homepage(主页subtitle)
 subtitle:
   enable: false
   # Typewriter Effect
