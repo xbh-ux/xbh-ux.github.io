@@ -1,0 +1,11 @@
+# Hugo
+public/
+resources/
+.hugo_build.lock
+
+# Obsidian
+content/.obsidian/
+
+# 系统文件
+.DS_Store
+Thumbs.db
