@@ -9,3 +9,7 @@ content/.obsidian/
 # 系统文件
 .DS_Store
 Thumbs.db
+
+# 忽略 content 目录下的 Templates 文件夹
+content/Templates/
+content/templates/
