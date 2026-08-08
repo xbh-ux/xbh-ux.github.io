@@ -1,7 +1,12 @@
 baseURL = 'https://xbh-ux.github.io/'
 title = '我的博客'
-theme = 'PaperMod'
+theme = 'hugo-book'
 defaultContentLanguage = 'zh'
+
+[[module.mounts]]
+  source = 'content'
+  target = 'content'
+  files = ['! Templates/**', '! templates/**']
 
 [languages]
   [languages.zh]
@@ -10,8 +15,7 @@ defaultContentLanguage = 'zh'
     weight = 1
 
 [params]
-  defaultTheme = 'auto'
-  ShowReadingTime = true
-  ShowShareButtons = true
-  ShowPostNavLinks = true
-  ShowCodeCopyButtons = true
+  BookSection = 'posts'
+  BookToC = true
+  BookSearch = true
+  BookTheme = "auto"
