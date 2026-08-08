@@ -1,6 +1,6 @@
 baseURL = 'https://xbh-ux.github.io/'
 title = '我的博客'
-theme = 'hugo-book'
+theme = 'stack'
 defaultContentLanguage = 'zh'
 
 [[module.mounts]]
@@ -15,7 +15,23 @@ defaultContentLanguage = 'zh'
     weight = 1
 
 [params]
-  BookSection = 'posts'
-  BookToC = true
-  BookSearch = true
-  BookTheme = "auto"
+  mainSections = ['posts']
+  rssFullContent = true
+  favicon = '/favicon.svg'
+
+  [params.sidebar]
+    compact = false
+    avatar = ''
+
+  [params.article]
+    headingAnchor = false
+    toc = true
+    readingTime = true
+
+  [params.colorScheme]
+    toggle = true
+    default = 'auto'
+
+  [params.footer]
+    since = 2026
+    customText = '保持好奇，持续记录。'
