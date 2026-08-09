@@ -1,9 +1,10 @@
 ---
-title: 学习
+title: obsidian+github pages 自动发布博客内容
 date: 2026-08-07
 draft: false
 tags: []
-categories: []
+categories:
+  - 兴趣
 ---
-
-测试测试 
+# 这是我的第一篇文章
+为什么要写这个文章，是因为原来的我都是使用的hexo主题+git手动进行上传的文章，最近使用obsidan做笔记，完整的插件生态让我彻底爱上了这个软件，就琢磨这能否将手动上传更改为自动上传。
