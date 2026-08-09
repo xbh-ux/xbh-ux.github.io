@@ -4,7 +4,10 @@ resources/
 .hugo_build.lock
 
 # Obsidian
-content/.obsidian/
+content/.obsidian/*
+!content/.obsidian/
+!content/.obsidian/app.json
+!content/.obsidian/templates.json
 
 # 系统文件
 .DS_Store
@@ -13,3 +16,4 @@ Thumbs.db
 # 忽略 content 目录下的 Templates 文件夹
 content/Templates/
 content/templates/
+content/assets/jsconfig.json

@@ -1,0 +1,9 @@
+{{- $destination := .Destination -}}
+{{- $src := $destination -}}
+{{- if hasPrefix $destination "../assets/" -}}
+  {{- $src = replace $destination "../assets/images/" "/images/" -}}
+{{- end -}}
+<img src="{{ $src | safeURL }}"
+  {{- with .PlainText }} alt="{{ . }}"{{ end -}}
+  {{- with .Title }} title="{{ . }}"{{ end -}}
+  loading="lazy">

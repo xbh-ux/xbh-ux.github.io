@@ -6,7 +6,15 @@ defaultContentLanguage = 'zh'
 [[module.mounts]]
   source = 'content'
   target = 'content'
-  files = ['! Templates/**', '! templates/**']
+  files = ['! Templates/**', '! templates/**', '! assets/**']
+
+[[module.mounts]]
+  source = 'content/assets'
+  target = 'assets'
+
+[[module.mounts]]
+  source = 'content/assets/images'
+  target = 'static/images'
 
 [languages]
   [languages.zh]
@@ -35,3 +43,9 @@ defaultContentLanguage = 'zh'
   [params.footer]
     since = 2026
     customText = '保持好奇，持续记录。'
+
+[markup.goldmark.renderHooks.image]
+  useEmbedded = 'fallback'
+
+[markup.goldmark.renderHooks.link]
+  useEmbedded = 'fallback'
