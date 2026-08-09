@@ -30,6 +30,7 @@ defaultContentLanguage = 'zh'
   [params.sidebar]
     compact = false
     avatar = ''
+    subtitle = '记录技术实践、学习笔记与日常思考。'
 
   [params.article]
     headingAnchor = false
@@ -49,3 +50,27 @@ defaultContentLanguage = 'zh'
 
 [markup.goldmark.renderHooks.link]
   useEmbedded = 'fallback'
+
+[[menu.main]]
+  identifier = 'home'
+  name = '首页'
+  url = '/'
+  weight = 10
+  [menu.main.params]
+    icon = 'home'
+
+[[menu.main]]
+  identifier = 'archives'
+  name = '归档'
+  url = '/archives/'
+  weight = 20
+  [menu.main.params]
+    icon = 'archives'
+
+[[menu.main]]
+  identifier = 'search'
+  name = '搜索'
+  url = '/search/'
+  weight = 30
+  [menu.main.params]
+    icon = 'search'
