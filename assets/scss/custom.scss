@@ -53,7 +53,10 @@ body, button, input, textarea, select { font-family: var(--sys-font-family); let
 .article-meta { gap: 14px; }
 .article-category a, .article-tags a { padding: 6px 11px; font-size: .85rem; }
 .article-content img { display: block; max-width: 100%; height: auto; margin: 28px auto; border-radius: 12px; box-shadow: 0 10px 28px rgba(var(--apple-shadow-rgb), .1); }
-.article-content pre { border: 1px solid var(--border-color); border-radius: 12px; box-shadow: none; }
+.article-content .highlight { margin-block: 24px; padding: 4px 0 4px 18px; background: transparent; border-left: 3px solid var(--border-color); }
+.article-content .highlight pre { padding: 0; background: transparent !important; border: 0; border-radius: 0; box-shadow: none; }
+.article-content .highlight code, .article-content .highlight code span { color: var(--card-text-color-main) !important; }
+.article-content .highlight .copyCodeButton { top: 0; right: 0; padding: 6px 10px; background: var(--card-background); border: 0; box-shadow: none; }
 .site-footer { margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--border-color); }
 .site-footer a { font-weight: 500; }
 :root[data-scheme="dark"] { --apple-shadow-rgb: 0, 0, 0; }
