@@ -16,6 +16,10 @@ defaultContentLanguage = 'zh'
   source = 'content/assets/images'
   target = 'static/images'
 
+[[module.mounts]]
+  source = 'static'
+  target = 'static'
+
 [languages]
   [languages.zh]
     locale = 'zh-cn'
@@ -33,7 +37,7 @@ defaultContentLanguage = 'zh'
     subtitle = '记录技术实践、学习笔记与日常思考。'
 
   [params.article]
-    headingAnchor = false
+    headingAnchor = true
     toc = true
     readingTime = true
 
@@ -44,6 +48,10 @@ defaultContentLanguage = 'zh'
   [params.footer]
     since = 2026
     customText = '保持好奇，持续记录。'
+
+  [params.widgets]
+    homepage = []
+    page = [{ type = 'toc' }]
 
 [markup.goldmark.renderHooks.image]
   useEmbedded = 'fallback'

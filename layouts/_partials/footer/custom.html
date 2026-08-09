@@ -1,0 +1,3 @@
+{{- if and .IsPage (lt (len .TableOfContents) 100) -}}
+  <nav id="TableOfContents" hidden aria-hidden="true"></nav>
+{{- end -}}

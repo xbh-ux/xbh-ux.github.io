@@ -17,3 +17,4 @@ Thumbs.db
 content/Templates/
 content/templates/
 content/assets/jsconfig.json
+.playwright-cli/
