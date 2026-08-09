@@ -59,21 +59,19 @@ Color rules: all custom colors use variables; blue is reserved for links, focus 
 
 ## 3. Typography Rules
 
-```css
-@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700&family=Roboto+Mono:wght@400;500&display=swap");
-```
+No external font request. Use the operating system's Apple-compatible font stack.
 
 | Role | Font | Size | Weight | Line Height | Letter Spacing |
 |---|---|---:|---:|---:|---:|
-| Page H1 | Noto Sans SC / system | 40px | 700 | 1.2 | 0 |
-| Article H1 | Noto Sans SC / system | 36px | 700 | 1.25 | 0 |
-| H2 | Noto Sans SC / system | 28px | 600 | 1.35 | 0 |
-| H3 | Noto Sans SC / system | 22px | 600 | 1.4 | 0 |
-| Body | Noto Sans SC / system | 17px | 400 | 1.8 | 0.02em |
-| Label | Noto Sans SC / system | 14px | 500 | 1.5 | 0 |
-| Code | Roboto Mono / monospace | 14px | 400 | 1.7 | 0 |
+| Page H1 | SF Pro Display / PingFang SC / system | 40px | 600 | 1.2 | 0 |
+| Article H1 | SF Pro Display / PingFang SC / system | 36px | 600 | 1.25 | 0 |
+| H2 | SF Pro Display / PingFang SC / system | 28px | 600 | 1.25 | 0 |
+| H3 | SF Pro Text / PingFang SC / system | 22px | 600 | 1.35 | 0 |
+| Body | SF Pro Text / PingFang SC / system | 17px | 400 | 1.75 | 0 |
+| Label | SF Pro Text / PingFang SC / system | 14px | 500 | 1.5 | 0 |
+| Code | SFMono-Regular / monospace | 14px | 400 | 1.7 | 0 |
 
-Use `PingFang SC`, `Microsoft YaHei` and system UI as local fallbacks. Never use decorative script, condensed display faces, negative letter spacing, or weights above 700. Headings and body text have no gradient or text shadow.
+Use `-apple-system`, `BlinkMacSystemFont`, `PingFang SC`, `Segoe UI`, and `Microsoft YaHei` as local fallbacks. Never use decorative script, condensed display faces, negative letter spacing, or weights above 700. Headings and body text have no gradient or text shadow.
 
 ## 4. Component Stylings
 

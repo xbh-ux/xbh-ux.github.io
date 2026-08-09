@@ -9,6 +9,10 @@ defaultContentLanguage = 'zh'
   files = ['! Templates/**', '! templates/**', '! assets/**']
 
 [[module.mounts]]
+  source = 'assets'
+  target = 'assets'
+
+[[module.mounts]]
   source = 'content/assets'
   target = 'assets'
 
