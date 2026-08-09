@@ -105,7 +105,7 @@ a:focus-visible { outline: 3px solid rgba(var(--apple-accent-rgb), .3); outline-
 .tag:hover { color: var(--apple-accent); }
 ```
 
-Search inputs use an 11px radius, visible focus ring, and a 44px minimum height. Code blocks have no surrounding box; a subtle left rule separates them from body text while preserving horizontal scrolling.
+Search inputs use an 11px radius, visible focus ring, and a 44px minimum height. Code blocks use a quiet neutral surface, 8px corners, and no border or shadow, preserving horizontal scrolling without a double-frame effect.
 
 ## 5. Layout Principles
 
