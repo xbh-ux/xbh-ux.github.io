@@ -15,4 +15,3 @@ categories:
 2.使用的obsidian git插件必须开启翻墙工具，因为国内有时无法访问github仓库
 ```
 
-测试是否可以上传成功
