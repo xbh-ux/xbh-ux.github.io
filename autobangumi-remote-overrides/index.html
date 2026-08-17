@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="theme-color" content="#FAFAFA" />
+    <link rel="icon" href="./images/logo.svg" />
+    <link rel="apple-touch-icon" href="/images/apple-touch-icon.png" />
+    <meta name="description" content="Automated Bangumi Download Tool" />
+    <!-- Self-hosted Inter (variable, 300–700): no render-blocking Google
+         Fonts round-trip, and it works where fonts.googleapis.com is slow
+         or blocked. CJK text falls through to Noto Sans SC / system fonts. -->
+    <link
+      rel="preload"
+      href="./fonts/inter-latin.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <style>
+      @font-face {
+        font-family: 'Inter';
+        font-style: normal;
+        font-weight: 300 700;
+        font-display: swap;
+        src: url('fonts/inter-latin.woff2') format('woff2');
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6,
+          U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122,
+          U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      }
+      @font-face {
+        font-family: 'Inter';
+        font-style: normal;
+        font-weight: 300 700;
+        font-display: swap;
+        src: url('fonts/inter-latin-ext.woff2') format('woff2');
+        unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7,
+          U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F,
+          U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F,
+          U+A720-A7FF;
+      }
+    </style>
+    <title>AutoBangumi</title>
+    <script>
+      // Apply dark mode before render to prevent flash
+      (function () {
+        const saved = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia(
+          '(prefers-color-scheme: dark)'
+        ).matches;
+        if (saved === 'dark' || (!saved && prefersDark)) {
+          document.documentElement.classList.add('dark');
+        }
+      })();
+    </script>
+    <script type="module" crossorigin src="./assets/index-a1466622.js"></script>
+    <link rel="stylesheet" href="./assets/style-b215aa15.css">
+  <link rel="manifest" href="./manifest.webmanifest"></head>
+  <body>
+    <div id="app"></div>
+
+    <style>
+      .ab-quick-entry {
+        position: fixed;
+        right: 22px;
+        z-index: 2147483000;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 104px;
+        height: 42px;
+        padding: 0 14px;
+        border-radius: 8px;
+        background: #2f9fc7;
+        color: #fff;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        box-shadow: 0 10px 24px rgba(0, 0, 0, 0.22);
+        font: 650 14px/1 Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        letter-spacing: 0;
+        text-decoration: none;
+      }
+      .ab-manual-entry { bottom: 92px; }
+      .ab-sources-entry { bottom: 144px; background: #7c5ccf; }
+      .ab-quick-entry:hover { background: #2288ad; color: #fff; }
+      .ab-sources-entry:hover { background: #684ab8; }
+      @media (max-width: 720px) {
+        .ab-quick-entry { right: 14px; min-width: 92px; height: 40px; }
+        .ab-manual-entry { bottom: 82px; }
+        .ab-sources-entry { bottom: 130px; }
+      }
+    </style>
+    <a class="ab-quick-entry ab-sources-entry" href="/sources.html" aria-label="打开资源入口页面">资源入口</a>
+    <a class="ab-quick-entry ab-manual-entry" href="/manual.html" aria-label="打开手动补集页面">手动补集</a>
+
+    
+  </body>
+</html>

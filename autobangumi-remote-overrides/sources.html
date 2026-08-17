@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>资源入口 - AutoBangumi</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg: #0f1623;
+        --panel: #171f2b;
+        --panel-2: #202d3d;
+        --line: #314155;
+        --text: #f4f7fb;
+        --muted: #9db0c9;
+        --blue: #37a8d4;
+        --violet: #8b67d8;
+        --green: #39c68a;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background: var(--bg);
+        color: var(--text);
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+      }
+      main {
+        width: min(1180px, calc(100vw - 32px));
+        margin: 0 auto;
+        padding: 40px 0 56px;
+      }
+      header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+        margin-bottom: 26px;
+      }
+      h1 {
+        margin: 0;
+        font-size: 30px;
+        line-height: 1.2;
+        letter-spacing: 0;
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+      .back {
+        color: #36c8ff;
+        font-size: 16px;
+        white-space: nowrap;
+      }
+      .notice {
+        margin-bottom: 22px;
+        padding: 14px 16px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #142033;
+        color: #c6d5ea;
+        line-height: 1.7;
+      }
+      .section {
+        margin-top: 22px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--panel);
+        overflow: hidden;
+      }
+      .section h2 {
+        margin: 0;
+        padding: 17px 18px;
+        border-bottom: 1px solid var(--line);
+        font-size: 18px;
+        letter-spacing: 0;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px;
+        padding: 16px;
+      }
+      .item {
+        min-height: 126px;
+        padding: 16px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--panel-2);
+      }
+      .item-title {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 10px;
+        font-size: 17px;
+        font-weight: 700;
+      }
+      .tag {
+        display: inline-flex;
+        align-items: center;
+        height: 24px;
+        padding: 0 9px;
+        border-radius: 999px;
+        background: rgba(57, 198, 138, 0.13);
+        color: #69e2ad;
+        border: 1px solid rgba(57, 198, 138, 0.28);
+        font-size: 12px;
+        font-weight: 650;
+      }
+      .tag.wait {
+        background: rgba(139, 103, 216, 0.14);
+        color: #c8b4ff;
+        border-color: rgba(139, 103, 216, 0.32);
+      }
+      p {
+        margin: 0 0 14px;
+        color: var(--muted);
+        line-height: 1.65;
+      }
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 38px;
+        padding: 0 13px;
+        border-radius: 8px;
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        background: var(--blue);
+        color: #fff;
+        font-weight: 700;
+      }
+      .btn.secondary {
+        background: transparent;
+        color: #c8d7ec;
+        border-color: var(--line);
+      }
+      .btn.violet {
+        background: var(--violet);
+      }
+      code {
+        color: #e0edff;
+        background: #0d1420;
+        border: 1px solid #243349;
+        border-radius: 6px;
+        padding: 2px 6px;
+      }
+      @media (max-width: 760px) {
+        main { width: min(100vw - 24px, 1180px); padding-top: 26px; }
+        header { align-items: flex-start; }
+        h1 { font-size: 25px; }
+        .grid { grid-template-columns: 1fr; padding: 12px; }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header>
+        <h1>资源入口</h1>
+        <a class="back" href="/">返回 AutoBangumi</a>
+      </header>
+
+      <div class="notice">
+        AutoBangumi 当前适合处理番剧 RSS。电视剧、电影建议走 Sonarr / Radarr / Prowlarr，再共用 qBittorrent 下载和 Jellyfin 播放。
+      </div>
+
+      <section class="section">
+        <h2>已接入 AutoBangumi 的番剧搜索源</h2>
+        <div class="grid">
+          <article class="item">
+            <div class="item-title">蜜柑计划 <span class="tag">已配置</span></div>
+            <p>当前主用 RSS 源，适合日漫订阅和自动匹配。</p>
+            <div class="actions">
+              <a class="btn" href="https://mikanime.tv/" target="_blank" rel="noreferrer">打开站点</a>
+            </div>
+          </article>
+          <article class="item">
+            <div class="item-title">动漫花园 <span class="tag">已配置</span></div>
+            <p>备用番剧源，适合用标题关键词搜索。</p>
+            <div class="actions">
+              <a class="btn" href="https://dmhy.org/" target="_blank" rel="noreferrer">打开站点</a>
+            </div>
+          </article>
+          <article class="item">
+            <div class="item-title">Nyaa <span class="tag">已配置</span></div>
+            <p>备用聚合源，通常更适合英文、罗马音或字幕组关键词。</p>
+            <div class="actions">
+              <a class="btn" href="https://nyaa.si/" target="_blank" rel="noreferrer">打开站点</a>
+            </div>
+          </article>
+          <article class="item">
+            <div class="item-title">AniBT <span class="tag">已配置</span></div>
+            <p>备用磁力 RSS 搜索源，作为 AutoBangumi 搜索补充。</p>
+            <div class="actions">
+              <a class="btn" href="https://anibt.net/" target="_blank" rel="noreferrer">打开站点</a>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>国漫、电视剧、电影建议入口</h2>
+        <div class="grid">
+          <article class="item">
+            <div class="item-title">RSSHub <span class="tag wait">更新提醒</span></div>
+            <p>适合做 B 站、腾讯视频、爱奇艺等更新提醒；它通常不是直接下载源。</p>
+            <div class="actions">
+              <a class="btn violet" href="https://docs.rsshub.app/" target="_blank" rel="noreferrer">查看路由</a>
+            </div>
+          </article>
+          <article class="item">
+            <div class="item-title">Sonarr / Radarr / Prowlarr <span class="tag wait">建议新装</span></div>
+            <p>电视剧用 Sonarr，电影用 Radarr，索引用 Prowlarr；后面可以接到当前 qBittorrent 和 Jellyfin。</p>
+            <div class="actions">
+              <a class="btn secondary" href="http://175.178.170.206:8080/" target="_blank" rel="noreferrer">打开 qBittorrent</a>
+              <a class="btn secondary" href="http://175.178.170.206:8096/" target="_blank" rel="noreferrer">打开 Jellyfin</a>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>当前配置文件</h2>
+        <div class="grid">
+          <article class="item">
+            <div class="item-title">AutoBangumi 搜索源</div>
+            <p>服务器文件：<code>/root/anime-stack/autobangumi/config/search_provider.json</code></p>
+            <div class="actions">
+              <a class="btn" href="/manual.html">进入手动补集</a>
+            </div>
+          </article>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

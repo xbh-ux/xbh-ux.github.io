@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>手动补集 - AutoBangumi</title>
+    <style>
+      :root {
+        color-scheme: light dark;
+        --bg: #f7f8fa;
+        --panel: #ffffff;
+        --text: #17202a;
+        --muted: #667085;
+        --line: #d9dee7;
+        --accent: #156b8a;
+        --accent-strong: #0f526a;
+        --ok: #16794c;
+        --warn: #9a5b00;
+        --shadow: 0 8px 24px rgba(20, 31, 48, 0.08);
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #111418;
+          --panel: #191e24;
+          --text: #edf1f5;
+          --muted: #a3acb9;
+          --line: #313943;
+          --accent: #46a6c8;
+          --accent-strong: #72c4de;
+          --ok: #63c28f;
+          --warn: #d9a441;
+          --shadow: none;
+        }
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background: var(--bg);
+        color: var(--text);
+        font-family:
+          Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+          "Segoe UI", sans-serif;
+        letter-spacing: 0;
+      }
+      main {
+        width: min(1120px, calc(100% - 32px));
+        margin: 0 auto;
+        padding: 28px 0 48px;
+      }
+      header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        margin-bottom: 20px;
+      }
+      h1 {
+        margin: 0;
+        font-size: 24px;
+        font-weight: 720;
+      }
+      a {
+        color: var(--accent);
+        text-decoration: none;
+      }
+      .toolbar,
+      .panel {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        box-shadow: var(--shadow);
+      }
+      .toolbar {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 12px;
+        padding: 14px;
+        margin-bottom: 16px;
+      }
+      select,
+      button {
+        height: 40px;
+        border-radius: 6px;
+        border: 1px solid var(--line);
+        background: var(--panel);
+        color: var(--text);
+        font: inherit;
+      }
+      select {
+        min-width: 0;
+        width: 100%;
+        padding: 0 10px;
+      }
+      button {
+        padding: 0 14px;
+        cursor: pointer;
+      }
+      button.primary {
+        border-color: var(--accent);
+        background: var(--accent);
+        color: white;
+      }
+      button.primary:hover {
+        background: var(--accent-strong);
+      }
+      button:disabled {
+        cursor: not-allowed;
+        opacity: 0.55;
+      }
+      .panel {
+        overflow: hidden;
+      }
+      .status {
+        min-height: 42px;
+        padding: 12px 14px;
+        color: var(--muted);
+        border-bottom: 1px solid var(--line);
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        table-layout: fixed;
+      }
+      th,
+      td {
+        padding: 12px 14px;
+        border-bottom: 1px solid var(--line);
+        text-align: left;
+        vertical-align: middle;
+      }
+      th {
+        color: var(--muted);
+        font-size: 13px;
+        font-weight: 650;
+      }
+      tbody tr:last-child td {
+        border-bottom: 0;
+      }
+      .ep {
+        width: 72px;
+        font-variant-numeric: tabular-nums;
+      }
+      .state {
+        width: 150px;
+      }
+      .count {
+        width: 96px;
+      }
+      .action {
+        width: 128px;
+      }
+      .torrent {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        min-height: 26px;
+        padding: 2px 8px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        color: var(--muted);
+        font-size: 13px;
+      }
+      .badge.done {
+        color: var(--ok);
+      }
+      .badge.active {
+        color: var(--warn);
+      }
+      @media (max-width: 720px) {
+        main {
+          width: min(100% - 20px, 1120px);
+          padding-top: 18px;
+        }
+        header,
+        .toolbar {
+          grid-template-columns: 1fr;
+          align-items: stretch;
+        }
+        header {
+          display: grid;
+        }
+        table,
+        thead,
+        tbody,
+        tr,
+        th,
+        td {
+          display: block;
+        }
+        thead {
+          display: none;
+        }
+        tr {
+          padding: 10px 0;
+          border-bottom: 1px solid var(--line);
+        }
+        td {
+          border-bottom: 0;
+          padding: 6px 14px;
+        }
+        .ep,
+        .state,
+        .count,
+        .action {
+          width: auto;
+        }
+        .torrent {
+          white-space: normal;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header>
+        <h1>手动补集</h1>
+        <a href="/">返回 AutoBangumi</a>
+      </header>
+      <section class="toolbar">
+        <select id="series" aria-label="番剧"></select>
+        <button id="refresh" class="primary" type="button">刷新</button>
+      </section>
+      <section class="panel">
+        <div id="status" class="status">加载中</div>
+        <table>
+          <thead>
+            <tr>
+              <th class="ep">集数</th>
+              <th class="state">状态</th>
+              <th class="count">候选</th>
+              <th>种子</th>
+              <th class="action">操作</th>
+            </tr>
+          </thead>
+          <tbody id="episodes"></tbody>
+        </table>
+      </section>
+    </main>
+    <script>
+      const seriesEl = document.querySelector("#series");
+      const refreshEl = document.querySelector("#refresh");
+      const statusEl = document.querySelector("#status");
+      const episodesEl = document.querySelector("#episodes");
+
+      const api = async (url, options = {}) => {
+        const response = await fetch(url, {
+          credentials: "same-origin",
+          headers: { "Content-Type": "application/json" },
+          ...options,
+        });
+        if (response.status === 401) {
+          throw new Error("请先登录 AutoBangumi");
+        }
+        if (!response.ok) {
+          throw new Error(await response.text());
+        }
+        return response.json();
+      };
+
+      const setStatus = (text) => {
+        statusEl.textContent = text;
+      };
+
+      const stateText = (item) => {
+        if (!item.status) return "未下载";
+        if (item.status.progress >= 0.999) return "已完成";
+        if (item.status.progress > 0) {
+          return `下载中 ${Math.round(item.status.progress * 100)}%`;
+        }
+        return item.status.state || "已投递";
+      };
+
+      const renderEpisodes = (data) => {
+        episodesEl.innerHTML = "";
+        for (const item of data.episodes) {
+          const tr = document.createElement("tr");
+          const status = stateText(item);
+          const done = item.status && item.status.progress >= 0.999;
+          const active = item.status && item.status.progress > 0 && !done;
+          tr.innerHTML = `
+            <td class="ep">E${String(item.episode).padStart(2, "0")}</td>
+            <td class="state"><span class="badge ${done ? "done" : active ? "active" : ""}">${status}</span></td>
+            <td class="count">${item.available_count}</td>
+            <td class="torrent" title="${item.candidate ? item.candidate.name : ""}">${item.candidate ? item.candidate.name : "-"}</td>
+            <td class="action"><button type="button" ${item.can_download ? "" : "disabled"} data-episode="${item.episode}">${done ? "重新下载" : "下载"}</button></td>
+          `;
+          episodesEl.appendChild(tr);
+        }
+        setStatus(`${data.title}，最新可检索到第 ${data.latest_episode} 集`);
+      };
+
+      const loadEpisodes = async () => {
+        const id = seriesEl.value;
+        if (!id) return;
+        refreshEl.disabled = true;
+        setStatus("检索中");
+        episodesEl.innerHTML = "";
+        try {
+          renderEpisodes(await api(`/api/v1/manual/episodes/${id}`));
+        } catch (error) {
+          setStatus(error.message || "加载失败");
+        } finally {
+          refreshEl.disabled = false;
+        }
+      };
+
+      const loadSeries = async () => {
+        const list = await api("/api/v1/bangumi/get/all");
+        const active = list.filter((item) => !item.deleted);
+        seriesEl.innerHTML = active
+          .map(
+            (item) =>
+              `<option value="${item.id}">${item.official_title} S${item.season}</option>`,
+          )
+          .join("");
+        await loadEpisodes();
+      };
+
+      episodesEl.addEventListener("click", async (event) => {
+        const button = event.target.closest("button[data-episode]");
+        if (!button) return;
+        const episode = Number(button.dataset.episode);
+        button.disabled = true;
+        button.textContent = "投递中";
+        try {
+          const result = await api("/api/v1/manual/download", {
+            method: "POST",
+            body: JSON.stringify({
+              bangumi_id: Number(seriesEl.value),
+              episode,
+            }),
+          });
+          setStatus(result.msg_zh);
+          await loadEpisodes();
+        } catch (error) {
+          setStatus(error.message || "投递失败");
+          button.disabled = false;
+          button.textContent = "下载";
+        }
+      });
+
+      seriesEl.addEventListener("change", loadEpisodes);
+      refreshEl.addEventListener("click", loadEpisodes);
+      loadSeries().catch((error) => setStatus(error.message || "加载失败"));
+    </script>
+  </body>
+</html>

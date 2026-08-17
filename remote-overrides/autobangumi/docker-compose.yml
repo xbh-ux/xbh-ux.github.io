@@ -1,0 +1,66 @@
+services:
+  qbittorrent:
+    image: linuxserver/qbittorrent:latest
+    container_name: qbittorrent
+    environment:
+      - PUID=0
+      - PGID=0
+      - TZ=Asia/Shanghai
+      - WEBUI_PORT=8080
+    volumes:
+      - /root/anime-stack/qbittorrent:/config
+      - /root/data/downloads:/downloads
+    ports:
+      - "8080:8080"      # qBittorrent WebUI
+      - "6881:6881"      # BT 下载端口 TCP
+      - "6881:6881/udp"  # BT 下载端口 UDP
+    restart: unless-stopped
+    mem_limit: 1g
+    cpus: 2
+
+  autobangumi:
+    image: ghcr.io/estrellaxd/auto_bangumi:latest
+    container_name: autobangumi
+    depends_on:
+      - qbittorrent
+    volumes:
+      - /root/anime-stack/autobangumi/config:/app/config
+      - /root/anime-stack/autobangumi/data:/app/data
+      - /root/anime-stack/overrides/manual.py:/app/module/api/manual.py:ro
+      - /root/anime-stack/overrides/api_init.py:/app/module/api/__init__.py:ro
+      - /root/anime-stack/overrides/manual.html:/app/dist/manual.html:ro
+    ports:
+      - "7892:7892"      # AutoBangumi WebUI
+    dns:
+      - 223.5.5.5
+    extra_hosts:
+      - "api.themoviedb.org:65.9.130.129"
+    restart: unless-stopped
+    # 覆盖镜像内置的 localhost(::1) 健康检查，改用 127.0.0.1，修复 unhealthy 误报
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://127.0.0.1:7892/health || exit 1"]
+      interval: 30s
+      timeout: 5s
+      start_period: 30s
+      retries: 3
+    mem_limit: 512m
+    cpus: 1
+
+  jellyfin:
+    image: linuxserver/jellyfin:latest
+    container_name: jellyfin
+    environment:
+      - PUID=0
+      - PGID=0
+      - TZ=Asia/Shanghai
+    extra_hosts:
+      - "api.themoviedb.org:65.9.130.129"
+    volumes:
+      - /root/anime-stack/jellyfin:/config
+      - /root/data/cos:/media    # COS 挂载点，Jellyfin 媒体库目录
+      - /root/data/downloads/Bangumi:/media/bangumi    # 番剧下载目录（qBittorrent 下载位置）
+    ports:
+      - "8096:8096"      # Jellyfin WebUI/播放
+    restart: unless-stopped
+    mem_limit: 1536m
+    cpus: 2
