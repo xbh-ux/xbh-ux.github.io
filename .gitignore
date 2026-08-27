@@ -19,3 +19,6 @@ content/templates/
 content/assets/jsconfig.json
 assets/jsconfig.json
 .playwright-cli/
+
+# 独立仓库，不作为博客仓库的子模块发布
+autobangumi-oneclick-stack/
