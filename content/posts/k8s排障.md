@@ -7,3 +7,5 @@ tags:
 categories:
   - k8s
 ---
+# k8s故障场景
+## 1.亲和性规则冲突
