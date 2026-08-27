@@ -37,25 +37,43 @@ pod其实包含三种容器类型：
 ```
 ##### 响应式管理pod
 ```bash
-1.创建时指定pod名称和镜像
-
+kubectl run
+kubectl scale
+kubectl delete
+等这些
 ```
 ##### 声明式管理pod
-
+```bash
+kubectl apply -f 资源清单
+```
 #### Deployment
-
+```bash
+deployment是k8s中用于管理应用（pod）的控制器，用于部署和管理无状态应用
+```
 #### Replicaset
-
+```bash
+副本集，负责确保集群中始终运行指定数量的pod副本，是edployment实现滚动更新、回滚和版本管理的基础组件
+```
 #### Statefulset
-
+```bash
+缩写sts，管理有状态应用，为pod提供稳定的网络标识和持久化存储
+```
 #### Daemonset
-
+```bash
+是k8s的控制器，确保集群中等每个节点上都运行一个特定的pod
+```
 #### job
-
+```bash
+负责运行一次性的批处理任务，确保任务成功完成
+```
 #### Cronjob
-
+```bash
+基于时间调度运行job，实现周期性任务
+```
 #### Namespace
-
+```bash
+命名空间，在k8s集群中的虚拟隔离分区，用于将集群资源（如pod、service、deployment、pve等）划分为不同的逻辑组
+```
 ### 网络访问类
 
 #### Service-给pod提供稳定访问地址
