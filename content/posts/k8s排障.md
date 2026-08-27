@@ -33,4 +33,31 @@ kubectl get pod <pod-name> -o yaml |grep -A 10 "affinity\|nodeSelector"
 ```bash
 4.查看node节点是否存在disktype这个节点
 kubectl get nodes --show-labels
+NAME      STATUS   ROLES           AGE   VERSION    LABELS
+master    Ready    control-plane   20d   v1.32.13   beta.kubernetes.io/arch=amd64,beta.kubernetes.io/os=linux,kubernetes.io/arch=amd64,kubernetes.io/hostname=master,kubernetes.io/os=linux,node-role.kubernetes.io/control-plane=,node.kubernetes.io/exclude-from-external-load-balancers=
+worker1   Ready    <none>          20d   v1.32.13   beta.kubernetes.io/arch=amd64,beta.kubernetes.io/os=linux,kubernetes.io/arch=amd64,kubernetes.io/hostname=worker1,kubernetes.io/os=linux
+worker2   Ready    <none>          20d   v1.32.13   beta.kubernetes.io/arch=amd64,beta.kubernetes.io/os=linux,kubernetes.io/arch=amd64,kubernetes.io/hostname=worker2,kubernetes.io/os=linux
+
+并没有这个disktype这个标签，所有3个节点都无法创建pod
+```
+
+## 2.DNS解析失败
+```bash
+1.查看节点状态
+kubectl get node -o wide
+
+2.查看pod详细信息
+kubectl describe pods
+
+3.报错信息
+Events:
+  Type    Reason     Age   From               Message
+  ----    ------     ----  ----               -------
+  Normal  Scheduled  100s  default-scheduler  Successfully assigned default/dns-failure-pod to worker1
+  Normal  Pulling    100s  kubelet            Pulling image "busybox"
+  Normal  Pulled     99s   kubelet            Successfully pulled image "busybox" in 776ms (776ms including waiting). Image size: 2236931 bytes.
+  Normal  Created    99s   kubelet            Created container: dns-test
+  Normal  Started    99s   kubelet            Started container dns-test
+
+
 ```
