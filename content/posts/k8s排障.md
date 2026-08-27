@@ -1,7 +1,9 @@
 ---
-title: "k8s排障"
-date: "2026-08-27"
+title: k8s排障
+date: 2026-08-27
 draft: false
-tags: []
-categories: []
+tags:
+  - 学习
+categories:
+  - k8s
 ---
