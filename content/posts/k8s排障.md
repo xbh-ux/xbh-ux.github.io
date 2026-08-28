@@ -196,6 +196,9 @@ root@master:~# kubectl get pods -o wide
 NAME               READY   STATUS             RESTARTS   AGE     IP            NODE      NOMINATED NODE   READINESS GATES
 cgroup-issue-pod   0/1     ImagePullBackOff   0          2m17s   10.244.2.23   worker2   <none>           <none>
 
+这里的报错信息并不对，是我网络的问题造成的镜像拉取失败，正确的报错关键字应该是`OOMKilled`，`Exit Code: 137`，pod状态为CrashLoopBackOff或者Error
+
+
 2.查看详细信息
 Events:
   Type     Reason     Age                 From               Message
@@ -226,4 +229,9 @@ spec:
         memory: "50Mi"
         
 可以看到容器启动使用内存为100m，但是limits限制的内存为50m，所以容器一达到50mi就被杀死
+```
+
+## 7.资源限制失败
+```bash
+
 ```
