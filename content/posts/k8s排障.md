@@ -233,5 +233,26 @@ spec:
 
 ## 7.资源限制失败
 ```bash
+1.查看pod信息
+root@master:~# kubectl get pods -o wide
+NAME                         READY   STATUS             RESTARTS   AGE   IP            NODE      NOMINATED NODE   READINESS GATES
+failed-resource-limits-pod   0/1     ImagePullBackOff   0          16s   10.244.2.31   worker2   <none>           <none>
+
+2.查看详细信息
+Events:
+  Type     Reason     Age                From               Message
+  ----     ------     ----               ----               -------
+  Normal   Scheduled  55s                default-scheduler  Successfully assigned default/failed-resource-limits-pod to worker2
+  Normal   BackOff    25s (x2 over 53s)  kubelet            Back-off pulling image "polinux/stress"
+  Warning  Failed     25s (x2 over 53s)  kubelet            Error: ImagePullBackOff
+  Normal   Pulling    14s (x3 over 55s)  kubelet            Pulling image "polinux/stress"
+  Warning  Failed     13s (x3 over 53s)  kubelet            Failed to pull image "polinux/stress": failed to pull and unpack image "docker.io/polinux/stress:latest": failed to resolve image: unexpected status from HEAD request to https://docker.m.daocloud.io/v2/polinux/stress/manifests/latest?ns=docker.io: 403 Forbidden
+denied: 🚫 👀-> https://github.com/DaoCloud/public-image-mirror/issues/2328 🔗 这镜像不在白名单. this image is not in the allowlist.
+  Warning  Failed  13s (x3 over 53s)  kubelet  Error: ErrImagePull
+  
+
+报错关键字：Failed to pull image 可以判断出是镜像拉取失败
+
+3.找到pod对应yaml文件排查
 
 ```
