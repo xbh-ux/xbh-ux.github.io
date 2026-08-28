@@ -87,3 +87,45 @@ kubectl delete dns-failure-pod
 kubectl apply -f 查询到的yaml文件地址
 
 ```
+
+## 3.资源不足
+```bash
+1.查看pod状态
+kubectl get pods -o wide
+NAME                         READY   STATUS    RESTARTS   AGE   IP       NODE     NOMINATED NODE   READINESS GATES
+insufficient-resources-pod   0/1     Pending   0          89s   <none>   <none>   <none>           <none>
+
+pod处于pending状态
+
+2.查看详细信息
+kubectl describe pods insufficient-resources-pod
+
+Events:
+  Type     Reason            Age    From               Message
+  ----     ------            ----   ----               -------
+  Warning  FailedScheduling  2m45s  default-scheduler  0/3 nodes are available: 1 node(s) had untolerated taint {node-role.kubernetes.io/control-plane: }, 2 Insufficient memory. preemption: 0/3 nodes are available: 1 Preemption is not helpful for scheduling, 2 No preemption victims found for incoming pod.
+  
+  警告 pod调度失败 2m45s前 默认调度器 3个节点均不可用 1 个节点存在无法容忍的污点（污点键：`node-role.kubernetes.io/control-plane`） 2个节点不匹配Pod的节点亲和性/选择器 抢占调度：0/3个节点可用
+  3个节点均无法通过抢占来解决调度问题
+  
+
+3.查看pod对应yaml文件请求的资源数量
+root@master:~# kubectl get pod insufficient-resources-pod -o yaml | grep -A 5 "resources:"
+    resources:
+      requests:
+        cpu: "2"
+        memory: 4Gi
+    terminationMessagePath: /dev/termination-log
+    terminationMessagePolicy: File
+    
+请求4g内存，而2个worker节点和1个master的内存都只有4g，所有无法创建pod，物理机器的资源不够pod请求，必须修改对应的资源清单
+
+4.删除pod并重建pod
+root@master:~# kubectl delete pods insufficient-resources-pod
+root@master:~# kubectl apply -f kubernetes-like-a-pro/troubleshoot-kubernetes-like-a-pro/scenarios/insufficient-resources/issue.yaml
+```
+
+4.k8s版本过旧
+```bash
+
+```
