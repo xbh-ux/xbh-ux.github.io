@@ -255,4 +255,34 @@ denied: 🚫 👀-> https://github.com/DaoCloud/public-image-mirror/issues/2328 
 
 3.找到pod对应yaml文件排查
 
+
+未解决
+```
+
+## 8.存活探针失败
+```bash
+1.查看pod具体信息
+```
+![](../assets/images/Pasted%20image%2020260828214633.png)
+```bash
+可以看到pod已经重启过一次
+
+2.查看详细信息
+kubectl describe pods liveness-probe-failure-pod
+
+Events:
+  Type     Reason     Age               From               Message
+  ----     ------     ----              ----               -------
+......
+  Warning  Unhealthy  0s (x8 over 27s)  kubelet            Liveness probe failed: HTTP probe failed with statuscode: 404
+.....
+
+根据告警，可以得知是存活探针的问题
+  
+  
+3.查看pod的yaml资源清单
+```
+![](../assets/images/Pasted%20image%2020260828215047.png)
+```bash
+所有pod会一直进行重启
 ```
