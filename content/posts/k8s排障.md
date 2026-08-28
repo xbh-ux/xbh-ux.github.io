@@ -188,3 +188,42 @@ uid=0(root) gid=0(root) groups=0(root),10(wheel)
 ~ $ id
 uid=1000 gid=1000 groups=1000
 ```
+
+## 6.CGroup问题
+```bash
+1.查看pod状态
+root@master:~# kubectl get pods -o wide
+NAME               READY   STATUS             RESTARTS   AGE     IP            NODE      NOMINATED NODE   READINESS GATES
+cgroup-issue-pod   0/1     ImagePullBackOff   0          2m17s   10.244.2.23   worker2   <none>           <none>
+
+2.查看详细信息
+Events:
+  Type     Reason     Age                 From               Message
+  ----     ------     ----                ----               -------
+  Normal   Scheduled  111s                default-scheduler  Successfully assigned default/cgroup-issue-pod to worker2
+  Normal   Pulling    17s (x4 over 110s)  kubelet            Pulling image "polinux/stress"
+  Warning  Failed     16s (x4 over 109s)  kubelet            Failed to pull image "polinux/stress": failed to pull and unpack image "docker.io/polinux/stress:latest": failed to resolve image: unexpected status from HEAD request to https://docker.m.daocloud.io/v2/polinux/stress/manifests/latest?ns=docker.io: 403 Forbidden
+denied: 🚫 👀-> https://github.com/DaoCloud/public-image-mirror/issues/2328 🔗 这镜像不在白名单. this image is not in the allowlist.
+  Warning  Failed   16s (x4 over 109s)  kubelet  Error: ErrImagePull
+  Normal   BackOff  3s (x6 over 109s)   kubelet  Back-off pulling image "polinux/stress"
+  Warning  Failed   3s (x6 over 109s)   kubelet  Error: ImagePullBackOff
+  
+  核心错误。表示请求被服务器拒绝，场景，镜像不在白名单中
+  
+3.看出对应资源清单
+root@master:~# cat ./kubernetes-like-a-pro/troubleshoot-kubernetes-like-a-pro/scenarios/cgroup-issues/issue.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: cgroup-issue-pod
+spec:
+  containers:
+  - name: stress
+    image: polinux/stress
+    command: ["stress", "--vm", "1", "--vm-bytes", "100M"]
+    resources:
+      limits:
+        memory: "50Mi"
+        
+可以看到容器启动使用内存为100m，但是limits限制的内存为50m，所以容器一达到50mi就被杀死
+```
