@@ -125,7 +125,66 @@ root@master:~# kubectl delete pods insufficient-resources-pod
 root@master:~# kubectl apply -f kubernetes-like-a-pro/troubleshoot-kubernetes-like-a-pro/scenarios/insufficient-resources/issue.yaml
 ```
 
-4.k8s版本过旧
+## 4.k8s版本过旧
 ```bash
 
+```
+
+## 5.安全上下文问题
+```bash
+root@master:~/kubernetes-like-a-pro/troubleshoot-kubernetes-like-a-pro/scenarios/security-context-issues# ll
+total 24
+drwxr-xr-x  2 root root 4096 Apr  7 14:27 ./
+drwxrwxr-x 37 root root 4096 Apr  7 14:27 ../
+-rw-rw-r--  1 root root  539 Aug 27 12:18 description.md
+-rw-rw-r--  1 root root  306 Apr  7 14:27 fix.yaml
+-rw-rw-r--  1 root root  309 Apr  7 14:27 issue.yaml
+-rw-rw-r--  1 root root  139 Apr  7 14:27 security_context.sh
+root@master:~/kubernetes-like-a-pro/troubleshoot-kubernetes-like-a-pro/scenarios/security-context-issues# cat fix.yaml 
+apiVersion: v1
+kind: Pod
+metadata:
+  name: security-context-fixed-pod
+spec:
+  containers:
+  - name: busybox
+    image: busybox
+    command:
+      - "sh"
+      - "-c"
+      - "echo 'Security context fixed' && sleep 1000"
+  securityContext:
+    runAsUser: 1000  # Set to a non-root user
+    runAsGroup: 1000
+root@master:~/kubernetes-like-a-pro/troubleshoot-kubernetes-like-a-pro/scenarios/security-context-issues# cat issue.yaml 
+apiVersion: v1
+kind: Pod
+metadata:
+  name: security-context-issue-pod
+spec:
+  containers:
+  - name: busybox
+    image: busybox
+    command:
+      - "sh"
+      - "-c"
+      - "echo 'Simulating security context issue' && sleep 1000"
+  securityContext:
+    runAsUser: 0  # Simulating root user
+    runAsGroup: 0
+    
+对比问题前yaml文件和修复后yaml文件
+
+排查出是securityContext字段发生了变化，从0（root）用户切换到1000（普通用户）
+
+实践：
+	1.查看pod的用户是啥
+	root@master:~/kubernetes-like-a-pro/troubleshoot-kubernetes-like-a-pro/scenarios/security-context-issues# kubectl exec -it security-context-issue-pod -- bin/sh
+/ # id
+uid=0(root) gid=0(root) groups=0(root),10(wheel)
+
+	2.修改后pod的用户
+	root@master:~/kubernetes-like-a-pro/troubleshoot-kubernetes-like-a-pro/scenarios/security-context-issues# kubectl exec -it security-context-fixed-pod -- bin/sh
+~ $ id
+uid=1000 gid=1000 groups=1000
 ```
