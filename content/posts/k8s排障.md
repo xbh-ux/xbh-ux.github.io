@@ -309,3 +309,59 @@ root@master:~# grep -r "name: pvc-issue-pod" .
 ```
 
 ## 10.SELinux/AppArmor 策略冲突
+```bash
+
+```
+
+## 11.集群自动伸缩问题
+```bash
+1.查看pod信息
+```
+![](../assets/images/Pasted%20image%2020260831103122.png)
+```bash
+发现有多个pod状态处于pending状态
+
+2.查看pod的详细信息
+Events:
+  Type     Reason            Age   From               Message
+  ----     ------            ----  ----               -------
+  Warning  FailedScheduling  90s   default-scheduler  0/3 nodes are available: 1 node(s) had untolerated taint {node-role.kubernetes.io/control-plane: }, 2 Insufficient cpu. preemption: 0/3 nodes are available: 1 Preemption is not helpful for scheduling, 2 No preemption victims found for incoming pod.
+  
+  警告   调度失败  90s前  来自默认调度器  可用节点0/3: 1个节点存在不可容忍的污点：node-role.kubernetes.io/control-plane:
+  
+  2个节点cpu不足，抢占评估结果：0/3节点可用，其中1个节点抢占无法解决调度问题，另外2个节点未找到可被抢占到pod
+  
+3.查看pod对应的资源清单
+```
+![](../assets/images/Pasted%20image%2020260831104228.png)
+```bash
+发现启动的pod配置信息为0.5核心256m的内存，启动20个pod
+但是我1master2worker都是4h4g的内存，所以我的集群硬件条件无法满足启动20个pod，所以有的pod无法启动
+
+解决办法：
+	1.要么修改对应的pod配置
+	2.要么减少启动的pod数量
+```
+
+## 12.挂载卷文件权限问题
+```bash
+1.查看pod状态为error状态
+
+2.查看详细信息
+```
+![](../assets/images/Pasted%20image%2020260831104802.png)
+```bash
+警告 回退重启 7s前 来自 kubelet 正在退避重启pod file-permissions-issue-pod(位于名称空间 default，UID为 7c99128...)中失败的容器 busybox
+
+3.查看pod日志
+root@master:~# kubectl logs file-permissions-issue-pod
+sh: line 0: can't create /tmp/test.txt: Read-only file system
+
+无法创建/tmp/test.txt'
+
+4.查看pod的yaml清单
+```
+![](../assets/images/Pasted%20image%2020260831105606.png)
+```bash
+发现是限制了只读，注解或者删除securityContext字段就可以了
+```
