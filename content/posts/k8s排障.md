@@ -390,3 +390,19 @@ Events:
 ```bash
 可以看到yaml文件中的存活探针和就绪探针都需要存在/nonexistent文件夹才能通过探针，但是nginx默认没有这个文件，所以探针失败，将标红的这两个删除后，重启pod，现在正常
 ```
+
+## 14.PID命明空间冲突
+```bash
+root@master:~# kubectl get pod pid-namespace-collision-pod -o yaml | grep -E "hostPID|shareProcessNamespace"
+      {"apiVersion":"v1","kind":"Pod","metadata":{"annotations":{},"name":"pid-namespace-collision-pod","namespace":"default"},"spec":{"containers":[{"command":["sh","-c","echo 'WARNING: Host PID namespace shared - security risk' \u0026\u0026 sleep 3600"],"image":"busybox","name":"busybox","securityContext":{"runAsUser":1000}}],"hostPID":true}}
+  hostPID: true
+  
+查看pod的yaml文件，该pod共享宿主机pid命名空间
+
+后果:
+	1.进入pod内可以执行ps aux可以看到宿主机的全部进程
+	2.如果pod内的应用被攻破，可以使用kill -9 杀死宿主机上的进程
+	3.当pid资源全局耗尽后，节点上的所以pod都无法创建新进程
+```
+
+## 15.ServiceAccount权限问题
