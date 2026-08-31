@@ -285,4 +285,27 @@ Events:
 ![](../assets/images/Pasted%20image%2020260828215047.png)
 ```bash
 所有pod会一直进行重启
+
+4.修改对应pod的资源清单，改成有相应路径的yaml后，删除并重启pod，就无报错
 ```
+
+## 9.持久卷声明问题
+```bash
+1.查看详细报错信息
+Events:
+  Type     Reason            Age   From               Message
+  ----     ------            ----  ----               -------
+  Warning  FailedScheduling  61s   default-scheduler  0/3 nodes are available: pod has unbound immediate PersistentVolumeClaims. preemption: 0/3 nodes are available: 3 Preemption is not helpful for scheduling.
+  
+  警告  调度器尝试将pod放在3个节点上失败，pod未绑定pvc
+  
+2.查看对应pod的yaml清单
+root@master:~# grep -r "name: pvc-issue-pod" .
+./kubernetes-like-a-pro/scenarios/persistent-volume-claim-issues/issue.yaml:  name: pvc-issue-pod
+```
+![](../assets/images/Pasted%20image%2020260831091817.png)
+```bash
+注解或者删除图片上对应的行就可解决报错
+```
+
+## 10.SELinux/AppArmor 策略冲突
