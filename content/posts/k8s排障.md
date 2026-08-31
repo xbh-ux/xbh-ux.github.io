@@ -503,5 +503,8 @@ blocked
 wget下载超时
 
 
-2.进入pod检查dns解释
+2.进入pod检查dns解析
+
+
+
 ```
