@@ -409,3 +409,44 @@ root@master:~# kubectl get pod pid-namespace-collision-pod -o yaml | grep -E "ho
 
 
 ## 16.容器运行时（CRI）错误
+```bash
+1.查看pod状态
+root@master:~# kubectl get pods -o wide
+NAME            READY   STATUS              RESTARTS   AGE   IP       NODE      NOMINATED NODE   READINESS GATES
+cri-error-pod   0/1     ContainerCreating   0          59s   <none>   worker2   <none>           <none>
+
+pod状态被卡到containerCreating 容器创建中
+
+2.查看pod详细状态信息
+Events:
+  Type     Reason                  Age   From               Message
+  ----     ------                  ----  ----               -------
+  Normal   Scheduled               104s  default-scheduler  Successfully assigned default/cri-error-pod to worker2
+  Warning  FailedCreatePodSandBox  104s  kubelet            Failed to create pod sandbox: rpc error: code = Unknown desc = unable to get OCI runtime for sandbox "c1d55779fc3edbd434abb06b671c048441fc59230848f785b9615edf26e30a4c": no runtime for "non-existent-handler" is configured
+  警告 创建pod沙盒失败 104s前 来自kubelet 创建pod沙盒失败，错误码=Unknown，描述 = 无法为沙盒 c1.... 获取oci运行时：未配置名为non-existent-handler的运行时
+  
+
+3.查看对应pod的yaml文件
+root@master:~# cat ./kubernetes-like-a-pro/scenarios/container-runtime-cri-errors/issue.yaml
+apiVersion: node.k8s.io/v1
+kind: RuntimeClass
+metadata:
+  name: broken-runtime
+handler: non-existent-handler
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: cri-error-pod
+spec:
+  runtimeClassName: broken-runtime
+  containers:
+  - name: busybox
+    image: busybox
+    command: ["sh", "-c", "sleep 3600"]
+    
+
+handler字段指定了容器运行时的处理名称，用于告知kubelet应用使用那个具体的OCI（Open Container lnitiative）运行时来运行该pod的容器
+
+可以看到yaml文件中配置了non-existent-handler，所以和报错信息相对应，没有对应的non-existent-handler运行时，所以无法启动pod
+```
