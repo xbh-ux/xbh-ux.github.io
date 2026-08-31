@@ -449,4 +449,59 @@ spec:
 handler字段指定了容器运行时的处理名称，用于告知kubelet应用使用那个具体的OCI（Open Container lnitiative）运行时来运行该pod的容器
 
 可以看到yaml文件中配置了non-existent-handler，所以和报错信息相对应，没有对应的non-existent-handler运行时，所以无法启动pod
+
+4.确定从节点部署了哪些handler
+cat /etc/containerd/config.toml | grep -A 10 "runtimes"
+
+可能会看到类似下面的内容：
+	root@worker2:~# cat /etc/containerd/config.toml | grep -A 10 "runtimes"
+      [plugins.'io.containerd.cri.v1.runtime'.containerd.runtimes]
+        [plugins.'io.containerd.cri.v1.runtime'.containerd.runtimes.runc]
+          runtime_type = 'io.containerd.runc.v2'
+          runtime_path = ''
+          pod_annotations = []
+          container_annotations = []
+          privileged_without_host_devices = false
+          privileged_without_host_devices_all_devices_allowed = false
+          cgroup_writable = false
+          base_runtime_spec = ''
+          cni_conf_dir = ''
+          cni_max_conf_num = 0
+--
+          [plugins.'io.containerd.cri.v1.runtime'.containerd.runtimes.runc.options]
+            BinaryName = ''
+            CriuImagePath = ''
+            CriuWorkPath = ''
+            IoGid = 0
+            IoUid = 0
+            NoNewKeyring = false
+            Root = ''
+            ShimCgroup = ''
+            SystemdCgroup = true
+            
+            
+其中这两行是关键：
+	[plugins.'io.containerd.cri.v1.runtime'.containerd.runtimes.runc]
+	[plugins.'io.containerd.cri.v1.runtime'.containerd.runtimes.runc.options]
+	
+	这两行配置位于containerd的配置文件（通常在/etc/containerd/config.toml）中，定义并配置runc这个运行时常量区（handler）的核心部分
+```
+
+## 17.防火墙限制
+```bash
+通过17个案例后，通用的三步走应该很熟练了：
+	kubectl get nodes -o wide
+	kubectl get pods -o wide 
+	kubectl describe pods <pod-name>
+	kubectl logs <pod-name>
+	
+1.前面都没有问题，查看pod的log日志出现问题
+root@master:~# kubectl logs firewall-restriction-pod
+wget: download timed out
+blocked
+
+wget下载超时
+
+
+2.进入pod检查dns解释
 ```
