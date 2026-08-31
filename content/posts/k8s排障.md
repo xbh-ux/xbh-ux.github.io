@@ -406,3 +406,6 @@ root@master:~# kubectl get pod pid-namespace-collision-pod -o yaml | grep -E "ho
 ```
 
 ## 15.ServiceAccount权限问题
+
+
+## 16.容器运行时（CRI）错误
