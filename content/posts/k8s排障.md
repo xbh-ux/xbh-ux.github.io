@@ -365,3 +365,28 @@ sh: line 0: can't create /tmp/test.txt: Read-only file system
 ```bash
 发现是限制了只读，注解或者删除securityContext字段就可以了
 ```
+
+## 13.存活/就绪探针失败
+```bash
+1.查看Pod状态
+root@master:~# kubectl get pods -o wide
+NAME                             READY   STATUS    RESTARTS      AGE   IP            NODE      NOMINATED NODE   READINESS GATES
+liveness-readiness-failure-pod   0/1     Running   1 (12s ago)   24s   10.244.1.36   worker1   <none>           <none>
+
+虽然状态为running状态，但是重启过一次
+
+2.查看pod详细信息
+Events:
+  Type     Reason     Age                From               Message
+  ----     ------     ----               ----               -------
+  Warning  Unhealthy  5s (x12 over 36s)  kubelet            Readiness probe failed: HTTP probe failed with statuscode: 404
+  Warning  Unhealthy  5s (x9 over 35s)   kubelet            Liveness probe failed: HTTP probe failed with statuscode: 404
+  警告 不健康 5s（在36s内出现12次） kubelet 就绪探针失败：http探测失败，状态码为404
+  警告 不健康 5s（在35s内出现9次） kubelet 存活探针失败：http探测状态，状态码为404
+
+3.查看对应pod的yaml文件 
+```
+![](../assets/images/Pasted%20image%2020260831111819.png)
+```bash
+可以看到yaml文件中的存活探针和就绪探针都需要存在/nonexistent文件夹才能通过探针，但是nginx默认没有这个文件，所以探针失败，将标红的这两个删除后，重启pod，现在正常
+```
